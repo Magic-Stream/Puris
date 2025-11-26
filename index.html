@@ -3,11 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Puris AI</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/x-icon" href="file_0000000099887207ad5172ce3a81f400.ico">
- <title>Puris AI – Smart AI Assistant for Technology, Health, Education</title>
 <meta property="og:title" content="Puris AI – Your Free Smart AI Assistant">
 <meta property="og:description" content="Get tech help, health tips, science answers, and more using Puris AI.">
 <meta property="og:image" content="https://puris-ai.vercel.app/logo.png">
@@ -20,8 +15,10 @@
 <meta name="author" content="PureByte">
 
 <meta name="robots" content="index, follow">
-
 <link rel="canonical" href="https://puris-ai.vercel.app/">
+    <title>Puris AI</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             font-family: 'Poppins', sans-serif;
@@ -115,17 +112,17 @@
                     
                     <!-- Quick Action Buttons -->
                     <div class="flex flex-wrap justify-center gap-2 max-w-lg mx-auto">
-                        <button onclick="quickMessage('What can you do?')" class="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 font-medium flat-btn transition-colors">
-                            What can you do?
+                        <button onclick="quickMessage('What time is it?')" class="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 font-medium flat-btn transition-colors">
+                            Current Time
                         </button>
-                        <button onclick="quickMessage('Tell me about technology')" class="bg-teal-500 hover:bg-teal-600 text-white px-4 py-2 font-medium flat-btn transition-colors">
+                        <button onclick="quickMessage('What is today\'s date?')" class="bg-teal-500 hover:bg-teal-600 text-white px-4 py-2 font-medium flat-btn transition-colors">
+                            Today's Date
+                        </button>
+                        <button onclick="quickMessage('Tell me about technology')" class="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 font-medium flat-btn transition-colors">
                             Technology
                         </button>
-                        <button onclick="quickMessage('Give me health tips')" class="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 font-medium flat-btn transition-colors">
-                            Health Tips
-                        </button>
-                        <button onclick="quickMessage('Tell me about science')" class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 font-medium flat-btn transition-colors">
-                            Science
+                        <button onclick="quickMessage('Do a math calculation: 25 * 4 + 10')" class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 font-medium flat-btn transition-colors">
+                            Math Help
                         </button>
                     </div>
                 </div>
@@ -141,7 +138,7 @@
                     <input 
                         type="text" 
                         id="messageInput" 
-                        placeholder="Type your message here..." 
+                        placeholder="Ask me about time, date, math, facts, or anything..." 
                         autocomplete="off"
                         class="w-full bg-indigo-50 border-2 border-indigo-200 py-3 px-4 text-indigo-900 placeholder-indigo-400 focus:outline-none focus:border-indigo-500 font-medium transition-colors"
                     >
@@ -159,18 +156,238 @@
             </form>
             <div class="flex items-center justify-center gap-4 mt-3">
                 <span class="text-xs text-indigo-400 font-medium">Powered by Puris Knowledge Base</span>
-                <span class="bg-indigo-200 text-indigo-600 text-xs px-2 py-1 font-semibold">v2.0</span>
+                <span class="bg-indigo-200 text-indigo-600 text-xs px-2 py-1 font-semibold">v3.0</span>
             </div>
         </div>
     </footer>
 
     <script>
-        
         // ============================================
-        // PURIS AI KNOWLEDGE BASE (EMBEDDED)
+        // REAL-TIME INFORMATION FUNCTIONS
+        // ============================================
+        const RealTimeInfo = {
+            getTime: function() {
+                const now = new Date();
+                const hours = now.getHours();
+                const minutes = now.getMinutes().toString().padStart(2, '0');
+                const seconds = now.getSeconds().toString().padStart(2, '0');
+                const ampm = hours >= 12 ? 'PM' : 'AM';
+                const hour12 = hours % 12 || 12;
+                return `The current time is ${hour12}:${minutes}:${seconds} ${ampm} (${hours}:${minutes} in 24-hour format).`;
+            },
+
+            getDate: function() {
+                const now = new Date();
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                const dateStr = now.toLocaleDateString('en-US', options);
+                return `Today is ${dateStr}.`;
+            },
+
+            getDay: function() {
+                const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                const now = new Date();
+                return `Today is ${days[now.getDay()]}.`;
+            },
+
+            getMonth: function() {
+                const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                const now = new Date();
+                return `The current month is ${months[now.getMonth()]} (Month ${now.getMonth() + 1} of 12).`;
+            },
+
+            getYear: function() {
+                const now = new Date();
+                return `The current year is ${now.getFullYear()}.`;
+            },
+
+            getFullDateTime: function() {
+                const now = new Date();
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+                return `Current date and time: ${now.toLocaleDateString('en-US', options)}.`;
+            },
+
+            getDaysUntilNewYear: function() {
+                const now = new Date();
+                const nextYear = new Date(now.getFullYear() + 1, 0, 1);
+                const diff = nextYear - now;
+                const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+                return `There are ${days} days until New Year ${now.getFullYear() + 1}!`;
+            },
+
+            getDaysInMonth: function() {
+                const now = new Date();
+                const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+                const currentDay = now.getDate();
+                const remaining = daysInMonth - currentDay;
+                return `This month has ${daysInMonth} days. Today is day ${currentDay}, with ${remaining} days remaining.`;
+            },
+
+            getWeekNumber: function() {
+                const now = new Date();
+                const start = new Date(now.getFullYear(), 0, 1);
+                const diff = now - start;
+                const oneWeek = 1000 * 60 * 60 * 24 * 7;
+                const week = Math.ceil(diff / oneWeek);
+                return `This is week ${week} of ${now.getFullYear()}.`;
+            },
+
+            getLeapYear: function() {
+                const year = new Date().getFullYear();
+                const isLeap = (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+                return isLeap ? `${year} is a leap year! February has 29 days.` : `${year} is not a leap year. February has 28 days.`;
+            },
+
+            getTimezone: function() {
+                const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                const offset = new Date().getTimezoneOffset();
+                const hours = Math.abs(Math.floor(offset / 60));
+                const mins = Math.abs(offset % 60);
+                const sign = offset <= 0 ? '+' : '-';
+                return `Your timezone is ${tz} (UTC${sign}${hours}:${mins.toString().padStart(2, '0')}).`;
+            },
+
+            getSeason: function() {
+                const now = new Date();
+                const month = now.getMonth();
+                let season;
+                if (month >= 2 && month <= 4) season = 'Spring 🌸';
+                else if (month >= 5 && month <= 7) season = 'Summer ☀️';
+                else if (month >= 8 && month <= 10) season = 'Autumn/Fall 🍂';
+                else season = 'Winter ❄️';
+                return `The current season (Northern Hemisphere) is ${season}.`;
+            },
+
+            getQuarter: function() {
+                const now = new Date();
+                const quarter = Math.ceil((now.getMonth() + 1) / 3);
+                return `We are currently in Q${quarter} (Quarter ${quarter}) of ${now.getFullYear()}.`;
+            },
+
+            getYearProgress: function() {
+                const now = new Date();
+                const start = new Date(now.getFullYear(), 0, 1);
+                const end = new Date(now.getFullYear() + 1, 0, 1);
+                const progress = ((now - start) / (end - start) * 100).toFixed(1);
+                return `${progress}% of ${now.getFullYear()} has passed.`;
+            }
+        };
+
+        // ============================================
+        // MATH CALCULATOR
+        // ============================================
+        const MathHelper = {
+            calculate: function(expression) {
+                try {
+                    // Clean the expression
+                    let cleaned = expression.replace(/[^0-9+\-*/.()%\s^]/g, '');
+                    cleaned = cleaned.replace(/\^/g, '**');
+                    // Safe evaluation
+                    const result = Function('"use strict"; return (' + cleaned + ')')();
+                    if (isNaN(result) || !isFinite(result)) {
+                        return "I couldn't calculate that. Please check your expression.";
+                    }
+                    return `The result of ${expression} is: ${result}`;
+                } catch (e) {
+                    return "I couldn't calculate that. Please make sure your math expression is valid (e.g., '5 + 3 * 2').";
+                }
+            },
+
+            sqrt: function(num) {
+                return `The square root of ${num} is ${Math.sqrt(num).toFixed(4)}`;
+            },
+
+            percentage: function(part, whole) {
+                return `${part} is ${((part/whole) * 100).toFixed(2)}% of ${whole}`;
+            },
+
+            power: function(base, exp) {
+                return `${base} raised to the power of ${exp} is ${Math.pow(base, exp)}`;
+            }
+        };
+
+        // ============================================
+        // WORLD FACTS DATABASE
+        // ============================================
+        const WorldFacts = {
+            countries: {
+                "usa": { capital: "Washington D.C.", population: "331 million", currency: "US Dollar (USD)", continent: "North America" },
+                "united states": { capital: "Washington D.C.", population: "331 million", currency: "US Dollar (USD)", continent: "North America" },
+                "uk": { capital: "London", population: "67 million", currency: "British Pound (GBP)", continent: "Europe" },
+                "united kingdom": { capital: "London", population: "67 million", currency: "British Pound (GBP)", continent: "Europe" },
+                "india": { capital: "New Delhi", population: "1.4 billion", currency: "Indian Rupee (INR)", continent: "Asia" },
+                "china": { capital: "Beijing", population: "1.4 billion", currency: "Chinese Yuan (CNY)", continent: "Asia" },
+                "japan": { capital: "Tokyo", population: "125 million", currency: "Japanese Yen (JPY)", continent: "Asia" },
+                "france": { capital: "Paris", population: "67 million", currency: "Euro (EUR)", continent: "Europe" },
+                "germany": { capital: "Berlin", population: "83 million", currency: "Euro (EUR)", continent: "Europe" },
+                "brazil": { capital: "Brasília", population: "213 million", currency: "Brazilian Real (BRL)", continent: "South America" },
+                "australia": { capital: "Canberra", population: "26 million", currency: "Australian Dollar (AUD)", continent: "Oceania" },
+                "canada": { capital: "Ottawa", population: "38 million", currency: "Canadian Dollar (CAD)", continent: "North America" },
+                "russia": { capital: "Moscow", population: "144 million", currency: "Russian Ruble (RUB)", continent: "Europe/Asia" },
+                "italy": { capital: "Rome", population: "60 million", currency: "Euro (EUR)", continent: "Europe" },
+                "spain": { capital: "Madrid", population: "47 million", currency: "Euro (EUR)", continent: "Europe" },
+                "mexico": { capital: "Mexico City", population: "128 million", currency: "Mexican Peso (MXN)", continent: "North America" },
+                "south korea": { capital: "Seoul", population: "52 million", currency: "South Korean Won (KRW)", continent: "Asia" },
+                "indonesia": { capital: "Jakarta", population: "273 million", currency: "Indonesian Rupiah (IDR)", continent: "Asia" }
+            },
+
+            elements: {
+                "hydrogen": { symbol: "H", number: 1, weight: "1.008" },
+                "helium": { symbol: "He", number: 2, weight: "4.003" },
+                "carbon": { symbol: "C", number: 6, weight: "12.011" },
+                "nitrogen": { symbol: "N", number: 7, weight: "14.007" },
+                "oxygen": { symbol: "O", number: 8, weight: "15.999" },
+                "gold": { symbol: "Au", number: 79, weight: "196.967" },
+                "silver": { symbol: "Ag", number: 47, weight: "107.868" },
+                "iron": { symbol: "Fe", number: 26, weight: "55.845" },
+                "copper": { symbol: "Cu", number: 29, weight: "63.546" },
+                "sodium": { symbol: "Na", number: 11, weight: "22.990" }
+            },
+
+            planets: {
+                "mercury": { position: 1, type: "Terrestrial", moons: 0, dayLength: "59 Earth days" },
+                "venus": { position: 2, type: "Terrestrial", moons: 0, dayLength: "243 Earth days" },
+                "earth": { position: 3, type: "Terrestrial", moons: 1, dayLength: "24 hours" },
+                "mars": { position: 4, type: "Terrestrial", moons: 2, dayLength: "24.6 hours" },
+                "jupiter": { position: 5, type: "Gas Giant", moons: 95, dayLength: "10 hours" },
+                "saturn": { position: 6, type: "Gas Giant", moons: 146, dayLength: "10.7 hours" },
+                "uranus": { position: 7, type: "Ice Giant", moons: 28, dayLength: "17 hours" },
+                "neptune": { position: 8, type: "Ice Giant", moons: 16, dayLength: "16 hours" }
+            },
+
+            conversions: {
+                kmToMiles: (km) => (km * 0.621371).toFixed(2),
+                milesToKm: (miles) => (miles * 1.60934).toFixed(2),
+                celsiusToFahrenheit: (c) => ((c * 9/5) + 32).toFixed(1),
+                fahrenheitToCelsius: (f) => ((f - 32) * 5/9).toFixed(1),
+                kgToLbs: (kg) => (kg * 2.20462).toFixed(2),
+                lbsToKg: (lbs) => (lbs / 2.20462).toFixed(2),
+                metersToFeet: (m) => (m * 3.28084).toFixed(2),
+                feetToMeters: (ft) => (ft / 3.28084).toFixed(2)
+            },
+
+            randomFacts: [
+                "Honey never spoils. Archaeologists have found 3000-year-old honey in Egyptian tombs that was still edible!",
+                "The shortest war in history lasted 38-45 minutes between Britain and Zanzibar on August 27, 1896.",
+                "Octopuses have three hearts and blue blood.",
+                "A day on Venus is longer than a year on Venus.",
+                "Bananas are berries, but strawberries aren't!",
+                "The Eiffel Tower can grow up to 6 inches taller during summer due to thermal expansion.",
+                "Humans share about 60% of their DNA with bananas.",
+                "The Great Wall of China is not visible from space with the naked eye.",
+                "A group of flamingos is called a 'flamboyance'.",
+                "Light from the Sun takes about 8 minutes and 20 seconds to reach Earth.",
+                "The human brain uses about 20% of the body's total energy.",
+                "Water can boil and freeze at the same time under certain conditions (triple point).",
+                "Sharks have been around longer than trees.",
+                "The inventor of the Pringles can is buried in one.",
+                "A jiffy is an actual unit of time: 1/100th of a second."
+            ]
+        };
+
+        // ============================================
+        // PURIS AI KNOWLEDGE BASE (ENHANCED)
         // ============================================
         const PurisKnowledge = {
-            // Greeting patterns
             greetings: {
                 patterns: ['hello', 'hi', 'hey', 'good morning', 'good afternoon', 'good evening', 'howdy', 'greetings'],
                 responses: [
@@ -181,7 +398,6 @@
                 ]
             },
 
-            // Farewell patterns
             farewells: {
                 patterns: ['bye', 'goodbye', 'see you', 'take care', 'later', 'farewell'],
                 responses: [
@@ -192,17 +408,15 @@
                 ]
             },
 
-            // About Puris
             about: {
                 patterns: ['who are you', 'what are you', 'your name', 'about you', 'introduce yourself', 'what is puris'],
                 responses: [
-                    "I'm Puris, an AI assistant designed to help you with information and conversations. I'm built with a focus on clarity and helpfulness!",
-                    "I'm Puris! Think of me as your digital companion ready to answer questions, provide information, and have meaningful conversations.",
-                    "My name is Puris. I'm an AI chatbot created to assist you with various topics and provide helpful responses."
+                    "I'm Puris, an AI assistant designed to help you with information and conversations. I can tell you the time, date, do math, share facts, and much more!",
+                    "I'm Puris! Think of me as your digital companion ready to answer questions about time, dates, countries, science, and have meaningful conversations.",
+                    "My name is Puris. I'm an AI chatbot that can help with real-time info like dates and times, calculations, world facts, and various topics!"
                 ]
             },
 
-            // Technology topics
             technology: {
                 patterns: ['technology', 'tech', 'programming', 'coding', 'software', 'computer', 'ai', 'artificial intelligence', 'machine learning'],
                 responses: [
@@ -212,7 +426,6 @@
                 ]
             },
 
-            // Health topics
             health: {
                 patterns: ['health', 'fitness', 'exercise', 'diet', 'nutrition', 'wellness', 'mental health', 'sleep', 'health tips'],
                 responses: [
@@ -222,7 +435,6 @@
                 ]
             },
 
-            // Science topics
             science: {
                 patterns: ['science', 'physics', 'chemistry', 'biology', 'astronomy', 'space', 'universe', 'nature'],
                 responses: [
@@ -232,7 +444,6 @@
                 ]
             },
 
-            // Education topics
             education: {
                 patterns: ['education', 'learning', 'study', 'school', 'university', 'college', 'course', 'knowledge'],
                 responses: [
@@ -242,7 +453,6 @@
                 ]
             },
 
-            // Weather topics
             weather: {
                 patterns: ['weather', 'climate', 'rain', 'sunny', 'temperature', 'forecast'],
                 responses: [
@@ -252,7 +462,6 @@
                 ]
             },
 
-            // Entertainment topics
             entertainment: {
                 patterns: ['movie', 'music', 'game', 'book', 'entertainment', 'fun', 'hobby', 'sport', 'art'],
                 responses: [
@@ -262,7 +471,6 @@
                 ]
             },
 
-            // Work and productivity
             productivity: {
                 patterns: ['work', 'productivity', 'job', 'career', 'business', 'office', 'meeting', 'project', 'task'],
                 responses: [
@@ -272,17 +480,15 @@
                 ]
             },
 
-            // Help and capabilities
             help: {
                 patterns: ['help', 'what can you do', 'capabilities', 'features', 'assist', 'support'],
                 responses: [
-                    "I can help you with various topics including technology, health, science, education, entertainment, productivity, and more! Just ask me anything and I'll do my best to assist.",
-                    "I'm here to answer questions, provide information, and have conversations on many subjects. Feel free to ask about tech, health, science, work, hobbies, or just chat!",
-                    "My capabilities include answering questions, explaining concepts, providing suggestions, and engaging in helpful conversations. What would you like to explore?"
+                    "I can help you with: 📅 Current date, time, day, week, season | 🧮 Math calculations | 🌍 Country info (capitals, populations) | 🔬 Science facts (elements, planets) | 📏 Unit conversions | 💡 Random fun facts | And general knowledge on many topics! Just ask away!",
+                    "My capabilities include: Real-time info (time, date, timezone), math calculations, country facts, periodic table elements, planet info, unit conversions, and much more. Try asking 'What time is it?' or 'Tell me about Japan'!",
+                    "I'm here to help with many things! Ask me about the current time/date, do math problems, learn about countries, elements, planets, convert units, or just chat about technology, health, science, and more!"
                 ]
             },
 
-            // Thanks
             thanks: {
                 patterns: ['thank', 'thanks', 'appreciate', 'grateful', 'helpful'],
                 responses: [
@@ -293,7 +499,6 @@
                 ]
             },
 
-            // Feelings/Status
             feelings: {
                 patterns: ['how are you', 'how do you feel', 'are you okay', 'you good', 'whats up'],
                 responses: [
@@ -304,22 +509,179 @@
                 ]
             },
 
-            // Default fallback responses
             fallback: [
-                "That's an interesting topic! While I may not have specific information on that, I'd love to learn more about what you're looking for.",
-                "I appreciate your question! Could you provide a bit more context so I can give you a better response?",
-                "Great question! Let me think about that... Feel free to ask me about technology, health, science, education, or other topics.",
-                "I'm not entirely sure about that specific topic, but I'm always learning. Is there something related I might help you with?",
-                "That's a thoughtful query! While I process that, feel free to ask me about other topics I'm knowledgeable in.",
-                "Hmm, that's a unique question. I'd suggest exploring that topic further. Meanwhile, is there anything else I can help with?"
+                "That's an interesting topic! While I may not have specific information on that, I'd love to learn more about what you're looking for. Try asking me about time, date, math, countries, planets, or elements!",
+                "I appreciate your question! Could you provide a bit more context? I'm great at answering questions about time, dates, doing math, and sharing facts about countries and science.",
+                "Great question! Let me think... Feel free to ask me about the current time, date, calculations, country information, periodic table elements, or planets!",
+                "I'm not entirely sure about that specific topic, but try asking me: 'What time is it?', 'Calculate 25*4', 'Tell me about France', or 'What is gold?'",
+                "That's a unique question. Meanwhile, did you know I can tell you the current time, date, do math calculations, or share facts about any planet in our solar system?"
             ]
         };
 
-        // Function to find the best matching response
+        // ============================================
+        // INTELLIGENT RESPONSE FINDER
+        // ============================================
         function findResponse(userMessage) {
             const message = userMessage.toLowerCase().trim();
             
-            // Check each knowledge category
+            // ===== TIME QUERIES =====
+            if (message.match(/what('?s| is) the time|current time|time now|time is it|tell me the time/)) {
+                return RealTimeInfo.getTime();
+            }
+            
+            // ===== DATE QUERIES =====
+            if (message.match(/what('?s| is) (the |today'?s? )?date|today'?s? date|current date|date today|what date/)) {
+                return RealTimeInfo.getDate();
+            }
+            
+            // ===== DAY QUERIES =====
+            if (message.match(/what day|which day|today'?s? day|day is it|day of (the )?week/)) {
+                return RealTimeInfo.getDay();
+            }
+            
+            // ===== MONTH QUERIES =====
+            if (message.match(/what('?s| is) (the )?month|current month|which month/)) {
+                return RealTimeInfo.getMonth();
+            }
+            
+            // ===== YEAR QUERIES =====
+            if (message.match(/what('?s| is) (the )?year|current year|which year/)) {
+                return RealTimeInfo.getYear();
+            }
+            
+            // ===== FULL DATE TIME =====
+            if (message.match(/date and time|time and date|full date|complete date/)) {
+                return RealTimeInfo.getFullDateTime();
+            }
+            
+            // ===== DAYS UNTIL NEW YEAR =====
+            if (message.match(/days until|new year|countdown/)) {
+                return RealTimeInfo.getDaysUntilNewYear();
+            }
+            
+            // ===== DAYS IN MONTH =====
+            if (message.match(/days in (this )?month|days remaining|how many days/)) {
+                return RealTimeInfo.getDaysInMonth();
+            }
+            
+            // ===== WEEK NUMBER =====
+            if (message.match(/week number|which week|what week/)) {
+                return RealTimeInfo.getWeekNumber();
+            }
+            
+            // ===== LEAP YEAR =====
+            if (message.match(/leap year/)) {
+                return RealTimeInfo.getLeapYear();
+            }
+            
+            // ===== TIMEZONE =====
+            if (message.match(/timezone|time zone|utc|gmt/)) {
+                return RealTimeInfo.getTimezone();
+            }
+            
+            // ===== SEASON =====
+            if (message.match(/what season|current season|which season/)) {
+                return RealTimeInfo.getSeason();
+            }
+            
+            // ===== QUARTER =====
+            if (message.match(/what quarter|which quarter|current quarter|q[1-4]/)) {
+                return RealTimeInfo.getQuarter();
+            }
+            
+            // ===== YEAR PROGRESS =====
+            if (message.match(/year progress|how much.*(year|passed)|percent.*(year|passed)/)) {
+                return RealTimeInfo.getYearProgress();
+            }
+
+            // ===== MATH CALCULATIONS =====
+            if (message.match(/calculate|compute|math|what is \d|solve|[\d\s+\-*/.()]+[+\-*/][\d\s+\-*/.()]+/)) {
+                // Extract math expression
+                const mathMatch = message.match(/[\d\s+\-*/.()^]+/g);
+                if (mathMatch) {
+                    const expression = mathMatch.join('').trim();
+                    if (expression.match(/[\d]+.*[+\-*/^].*[\d]+/)) {
+                        return MathHelper.calculate(expression);
+                    }
+                }
+                return "I can do math! Just type an expression like '25 * 4 + 10' or 'calculate 100 / 5'.";
+            }
+
+            // ===== SQUARE ROOT =====
+            if (message.match(/square root|sqrt/)) {
+                const num = message.match(/\d+/);
+                if (num) {
+                    return MathHelper.sqrt(parseFloat(num[0]));
+                }
+                return "Please provide a number. Example: 'square root of 144'";
+            }
+
+            // ===== COUNTRY INFORMATION =====
+            for (const country in WorldFacts.countries) {
+                if (message.includes(country)) {
+                    const info = WorldFacts.countries[country];
+                    return `🌍 **${country.charAt(0).toUpperCase() + country.slice(1)}**\n• Capital: ${info.capital}\n• Population: ${info.population}\n• Currency: ${info.currency}\n• Continent: ${info.continent}`;
+                }
+            }
+            
+            if (message.match(/capital of|what is the capital/)) {
+                return "I know capitals of many countries! Ask me about specific countries like USA, UK, India, Japan, France, Germany, Brazil, Australia, Canada, etc.";
+            }
+
+            // ===== ELEMENT INFORMATION =====
+            for (const element in WorldFacts.elements) {
+                if (message.includes(element)) {
+                    const info = WorldFacts.elements[element];
+                    return `⚗️ **${element.charAt(0).toUpperCase() + element.slice(1)}**\n• Symbol: ${info.symbol}\n• Atomic Number: ${info.number}\n• Atomic Weight: ${info.weight}`;
+                }
+            }
+
+            // ===== PLANET INFORMATION =====
+            for (const planet in WorldFacts.planets) {
+                if (message.includes(planet)) {
+                    const info = WorldFacts.planets[planet];
+                    return `🪐 **${planet.charAt(0).toUpperCase() + planet.slice(1)}**\n• Position from Sun: ${info.position}\n• Type: ${info.type}\n• Known Moons: ${info.moons}\n• Day Length: ${info.dayLength}`;
+                }
+            }
+
+            // ===== UNIT CONVERSIONS =====
+            const kmToMilesMatch = message.match(/(\d+\.?\d*)\s*(km|kilometers?)\s*(to|in)\s*miles?/i);
+            if (kmToMilesMatch) {
+                return `${kmToMilesMatch[1]} km = ${WorldFacts.conversions.kmToMiles(parseFloat(kmToMilesMatch[1]))} miles`;
+            }
+
+            const milesToKmMatch = message.match(/(\d+\.?\d*)\s*miles?\s*(to|in)\s*(km|kilometers?)/i);
+            if (milesToKmMatch) {
+                return `${milesToKmMatch[1]} miles = ${WorldFacts.conversions.milesToKm(parseFloat(milesToKmMatch[1]))} km`;
+            }
+
+            const celsiusMatch = message.match(/(\d+\.?\d*)\s*(c|celsius|°c)\s*(to|in)\s*(f|fahrenheit|°f)/i);
+            if (celsiusMatch) {
+                return `${celsiusMatch[1]}°C = ${WorldFacts.conversions.celsiusToFahrenheit(parseFloat(celsiusMatch[1]))}°F`;
+            }
+
+            const fahrenheitMatch = message.match(/(\d+\.?\d*)\s*(f|fahrenheit|°f)\s*(to|in)\s*(c|celsius|°c)/i);
+            if (fahrenheitMatch) {
+                return `${fahrenheitMatch[1]}°F = ${WorldFacts.conversions.fahrenheitToCelsius(parseFloat(fahrenheitMatch[1]))}°C`;
+            }
+
+            const kgToLbsMatch = message.match(/(\d+\.?\d*)\s*(kg|kilograms?)\s*(to|in)\s*(lbs?|pounds?)/i);
+            if (kgToLbsMatch) {
+                return `${kgToLbsMatch[1]} kg = ${WorldFacts.conversions.kgToLbs(parseFloat(kgToLbsMatch[1]))} lbs`;
+            }
+
+            const lbsToKgMatch = message.match(/(\d+\.?\d*)\s*(lbs?|pounds?)\s*(to|in)\s*(kg|kilograms?)/i);
+            if (lbsToKgMatch) {
+                return `${lbsToKgMatch[1]} lbs = ${WorldFacts.conversions.lbsToKg(parseFloat(lbsToKgMatch[1]))} kg`;
+            }
+
+            // ===== RANDOM FACT =====
+            if (message.match(/random fact|fun fact|tell me a fact|interesting fact|did you know/)) {
+                const facts = WorldFacts.randomFacts;
+                return "💡 Fun Fact: " + facts[Math.floor(Math.random() * facts.length)];
+            }
+
+            // ===== KNOWLEDGE BASE PATTERNS =====
             for (const category in PurisKnowledge) {
                 if (category === 'fallback') continue;
                 
@@ -330,7 +692,7 @@
                 }
             }
             
-            // Return a fallback response if no match found
+            // Return a fallback response
             const fallbacks = PurisKnowledge.fallback;
             return fallbacks[Math.floor(Math.random() * fallbacks.length)];
         }
@@ -344,19 +706,20 @@
         const chatContainer = document.getElementById('chatContainer');
         const sendBtn = document.getElementById('sendBtn');
 
-        // Quick message function for suggestion buttons
         function quickMessage(text) {
             messageInput.value = text;
             chatForm.dispatchEvent(new Event('submit'));
         }
 
         function addMessage(content, isUser = false) {
-            // Remove welcome screen if it exists
             const welcome = document.getElementById('welcomeScreen');
             if (welcome) welcome.remove();
 
             const messageDiv = document.createElement('div');
             messageDiv.className = `flex ${isUser ? 'justify-end' : 'justify-start'} message-enter`;
+            
+            // Format content for display (handle line breaks)
+            const formattedContent = content.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
             
             if (isUser) {
                 messageDiv.innerHTML = `
@@ -377,7 +740,7 @@
                         </div>
                         <div>
                             <div class="bg-white border-l-4 border-teal-500 px-4 py-3">
-                                <p class="text-gray-700 font-medium">${content}</p>
+                                <p class="text-gray-700 font-medium">${formattedContent}</p>
                             </div>
                             <div class="mt-1">
                                 <span class="text-xs text-indigo-400 font-medium">${getCurrentTime()}</span>
@@ -443,17 +806,17 @@
                     <p class="text-indigo-600 font-medium max-w-md mx-auto mb-6">Your intelligent AI assistant ready to help with technology, health, science, education, and more!</p>
                     
                     <div class="flex flex-wrap justify-center gap-2 max-w-lg mx-auto">
-                        <button onclick="quickMessage('What can you do?')" class="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 font-medium flat-btn transition-colors">
-                            What can you do?
+                        <button onclick="quickMessage('What time is it?')" class="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 font-medium flat-btn transition-colors">
+                            Current Time
                         </button>
-                        <button onclick="quickMessage('Tell me about technology')" class="bg-teal-500 hover:bg-teal-600 text-white px-4 py-2 font-medium flat-btn transition-colors">
+                        <button onclick="quickMessage('What is today\\'s date?')" class="bg-teal-500 hover:bg-teal-600 text-white px-4 py-2 font-medium flat-btn transition-colors">
+                            Today's Date
+                        </button>
+                        <button onclick="quickMessage('Tell me about technology')" class="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 font-medium flat-btn transition-colors">
                             Technology
                         </button>
-                        <button onclick="quickMessage('Give me health tips')" class="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 font-medium flat-btn transition-colors">
-                            Health Tips
-                        </button>
-                        <button onclick="quickMessage('Tell me about science')" class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 font-medium flat-btn transition-colors">
-                            Science
+                        <button onclick="quickMessage('Do a math calculation: 25 * 4 + 10')" class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 font-medium flat-btn transition-colors">
+                            Math Help
                         </button>
                     </div>
                 </div>
@@ -465,31 +828,23 @@
             const message = messageInput.value.trim();
             if (!message) return;
 
-            // Add user message
             addMessage(message, true);
             messageInput.value = '';
             sendBtn.disabled = true;
 
-            // Show typing indicator
             addTypingIndicator();
 
-            // Simulate AI processing delay
-            await new Promise(resolve => setTimeout(resolve, 800 + Math.random() * 1000));
+            await new Promise(resolve => setTimeout(resolve, 600 + Math.random() * 800));
 
-            // Get response from knowledge base
             const response = findResponse(message);
 
-            // Remove typing and add response
             removeTypingIndicator();
             addMessage(response, false);
             sendBtn.disabled = false;
             messageInput.focus();
         });
 
-        // Focus input on load
         messageInput.focus();
-
-</script>
     </script>
 </body>
 </html>
